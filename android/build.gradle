@@ -4,6 +4,10 @@ buildscript {
         google()
         mavenCentral()
     }
+    
+    plugins{
+        id 'com.google.gms.google-services' version '4.3.15' apply false
+    }
 
     dependencies {
         classpath 'com.android.tools.build:gradle:7.3.0'
