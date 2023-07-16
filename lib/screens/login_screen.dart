@@ -3,7 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:instagram_clone/constants/gaps.dart';
 import 'package:instagram_clone/constants/sizes.dart';
+import 'package:instagram_clone/resources/auth_methods.dart';
+import 'package:instagram_clone/responsive/mobile_screen_layout.dart';
+import 'package:instagram_clone/responsive/responsive_layout_screen.dart';
+import 'package:instagram_clone/responsive/web_screen_layout.dart';
+import 'package:instagram_clone/screens/signup_screen.dart';
 import 'package:instagram_clone/utils/colors.dart';
+import 'package:instagram_clone/utils/dimesions.dart';
+import 'package:instagram_clone/utils/utils.dart';
 import 'package:instagram_clone/widgets/text_field_input.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,6 +23,43 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isloading = false;
+
+  void _loginUser() async {
+    setState(() {
+      _isloading = true;
+    });
+    String res = await AuthMethods().loginUser(
+        email: _emailController.text, password: _passwordController.text);
+    if (res == 'success') {
+      if (context.mounted) {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) => const ResponsiveLayout(
+                mobileScreenLayout: MobileScreenLayout(),
+                webScreenLayout: WebScreenLayout(),
+              ),
+            ),
+            (route) => false);
+
+        setState(() {
+          _isloading = false;
+        });
+      }
+    } else {
+      setState(() {
+        _isloading = false;
+      });
+      if (context.mounted) {
+        showSnackBar(res, context);
+      }
+    }
+  }
+
+  void _goSignUpscreen() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => SignUpScreen()));
+  }
 
   @override
   void dispose() {
@@ -57,16 +101,23 @@ class _LoginScreenState extends State<LoginScreen> {
               isPass: true,
             ),
             Gaps.v24,
-            Container(
-              child: const Text('Log in'),
-              width: double.infinity,
-              alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(vertical: Sizes.size12),
-              decoration: const ShapeDecoration(
-                color: Colors.blue,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(4),
+            InkWell(
+              onTap: _loginUser,
+              child: Container(
+                child: _isloading
+                    ? CircularProgressIndicator(
+                        color: primaryColor,
+                      )
+                    : const Text('Log in'),
+                width: double.infinity,
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(vertical: Sizes.size12),
+                decoration: const ShapeDecoration(
+                  color: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(4),
+                    ),
                   ),
                 ),
               ),
@@ -86,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: _goSignUpscreen,
                   child: Container(
                     child: Text(
                       "Sign up.",
