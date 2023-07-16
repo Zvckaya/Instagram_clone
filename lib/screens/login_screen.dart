@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:instagram_clone/constants/gaps.dart';
@@ -9,7 +8,6 @@ import 'package:instagram_clone/responsive/responsive_layout_screen.dart';
 import 'package:instagram_clone/responsive/web_screen_layout.dart';
 import 'package:instagram_clone/screens/signup_screen.dart';
 import 'package:instagram_clone/utils/colors.dart';
-import 'package:instagram_clone/utils/dimesions.dart';
 import 'package:instagram_clone/utils/utils.dart';
 import 'package:instagram_clone/widgets/text_field_input.dart';
 
@@ -25,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   bool _isloading = false;
 
-  void _loginUser() async {
+  void loginUser() async {
     setState(() {
       _isloading = true;
     });
@@ -54,11 +52,6 @@ class _LoginScreenState extends State<LoginScreen> {
         showSnackBar(res, context);
       }
     }
-  }
-
-  void _goSignUpscreen() {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => SignUpScreen()));
   }
 
   @override
@@ -102,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             Gaps.v24,
             InkWell(
-              onTap: _loginUser,
+              onTap: loginUser,
               child: Container(
                 child: _isloading
                     ? CircularProgressIndicator(
@@ -137,7 +130,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: _goSignUpscreen,
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => const SignUpScreen()),
+                  ),
                   child: Container(
                     child: Text(
                       "Sign up.",
