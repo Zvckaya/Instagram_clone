@@ -15,9 +15,13 @@ class MobileScreenLayout extends StatefulWidget {
 class _MobileScreenLayoutState extends State<MobileScreenLayout> {
   @override
   Widget build(BuildContext context) {
-    Future<model.User> user = Provider.of<UserProvider>(context).getUser();
-    return Scaffold(
-      body: Center(child: Text(user!.email)),
-    );
+    final model.User? user = Provider.of<UserProvider>(context).getUser;
+    return user == null
+        ? const Center(
+            child: CircularProgressIndicator(),
+          )
+        : Scaffold(
+            body: Text(user.email),
+          );
   }
 }
