@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (kIsWeb) {
+    //웹인지 구분
     await Firebase.initializeApp(
         options: const FirebaseOptions(
             apiKey: appApiKey,
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (cnt) => UserProvider(),
+          create: (cnt) => UserProvider(), //유저 프로바이더
         )
       ],
       child: MaterialApp(
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.active) {
+              //로그인
               if (snapshot.hasData) {
                 //snapshot 데이터 존재시 유저 존재함
                 return const ResponsiveLayout(
