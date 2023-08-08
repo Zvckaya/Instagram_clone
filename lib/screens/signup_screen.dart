@@ -101,124 +101,125 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 32),
-        width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Flexible(
-              child: Container(),
-              flex: 1,
-            ),
-            SvgPicture.asset(
-              'assets/ic_instagram.svg',
-              color: primaryColor,
-              height: 64,
-            ),
-            Gaps.v64,
-            Stack(
-              children: [
-                _image != null
-                    ? CircleAvatar(
-                        radius: 64,
-                        backgroundImage: MemoryImage(_image!),
-                      )
-                    : CircleAvatar(
-                        radius: 64,
-                        backgroundImage: NetworkImage(
-                            "https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg"),
-                      ),
-                Positioned(
-                  bottom: -10,
-                  left: 80,
-                  child: IconButton(
-                    onPressed: _selectImage,
-                    icon: Icon(Icons.add_a_photo),
-                  ),
-                )
-              ],
-            ),
-            Gaps.v24,
-            TextFieldInput(
-              hintText: "Enter your username",
-              textInputType: TextInputType.emailAddress,
-              textEditingController: _usernameController,
-            ),
-            Gaps.v24,
-            TextFieldInput(
-              hintText: 'Enter your email',
-              textInputType: TextInputType.emailAddress,
-              textEditingController: _emailController,
-            ),
-            Gaps.v24,
-            TextFieldInput(
-              hintText: 'Enter your password',
-              textInputType: TextInputType.text,
-              textEditingController: _passwordController,
-              isPass: true,
-            ),
-            Gaps.v24,
-            TextFieldInput(
-              hintText: 'Enter your bio',
-              textInputType: TextInputType.emailAddress,
-              textEditingController: _bioController,
-            ),
-            Gaps.v24,
-            InkWell(
-              onTap: signUpUser,
-              child: Container(
-                child: _isLoading
-                    ? Center(
-                        child: CircularProgressIndicator(
-                          color: primaryColor,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Flexible(
+                child: Container(),
+                flex: 1,
+              ),
+              SvgPicture.asset(
+                'assets/ic_instagram.svg',
+                color: primaryColor,
+                height: 64,
+              ),
+              Gaps.v64,
+              Stack(
+                children: [
+                  _image != null
+                      ? CircleAvatar(
+                          radius: 64,
+                          backgroundImage: MemoryImage(_image!),
+                        )
+                      : CircleAvatar(
+                          radius: 64,
+                          backgroundImage: NetworkImage(
+                              "https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg"),
                         ),
-                      )
-                    : Text('Sign up'),
-                width: double.infinity,
-                alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(vertical: Sizes.size12),
-                decoration: const ShapeDecoration(
-                  color: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(4),
+                  Positioned(
+                    bottom: -10,
+                    left: 80,
+                    child: IconButton(
+                      onPressed: _selectImage,
+                      icon: Icon(Icons.add_a_photo),
+                    ),
+                  )
+                ],
+              ),
+              Gaps.v24,
+              TextFieldInput(
+                hintText: "Enter your username",
+                textInputType: TextInputType.emailAddress,
+                textEditingController: _usernameController,
+              ),
+              Gaps.v24,
+              TextFieldInput(
+                hintText: 'Enter your email',
+                textInputType: TextInputType.emailAddress,
+                textEditingController: _emailController,
+              ),
+              Gaps.v24,
+              TextFieldInput(
+                hintText: 'Enter your password',
+                textInputType: TextInputType.text,
+                textEditingController: _passwordController,
+                isPass: true,
+              ),
+              Gaps.v24,
+              TextFieldInput(
+                hintText: 'Enter your bio',
+                textInputType: TextInputType.emailAddress,
+                textEditingController: _bioController,
+              ),
+              Gaps.v24,
+              InkWell(
+                onTap: signUpUser,
+                child: Container(
+                  child: _isLoading
+                      ? Center(
+                          child: CircularProgressIndicator(
+                            color: primaryColor,
+                          ),
+                        )
+                      : Text('Sign up'),
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.symmetric(vertical: Sizes.size12),
+                  decoration: const ShapeDecoration(
+                    color: Colors.blue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(4),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Gaps.v12,
-            Flexible(
-              child: Container(),
-              flex: 2,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  child: Text("Do you have Id?"),
-                  padding: EdgeInsets.symmetric(
-                    vertical: 8,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: _goLoginScreen,
-                  child: Container(
-                    child: Text(
-                      "Log in.",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
+              Gaps.v12,
+              Flexible(
+                child: Container(),
+                flex: 2,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child: Text("Do you have Id?"),
                     padding: EdgeInsets.symmetric(
                       vertical: 8,
                     ),
                   ),
-                ),
-              ],
-            )
-          ],
+                  GestureDetector(
+                    onTap: _goLoginScreen,
+                    child: Container(
+                      child: Text(
+                        "Log in.",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        vertical: 8,
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }

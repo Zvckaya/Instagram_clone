@@ -152,7 +152,9 @@ class _PostCartState extends State<PostCart> {
               IconButton(
                 onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => CommentScreen(),
+                    builder: (context) => CommentScreen(
+                      snap: widget.snap,
+                    ),
                   ),
                 ),
                 icon: const Icon(
